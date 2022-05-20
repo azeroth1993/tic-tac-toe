@@ -1,23 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import Board from './components/game/board'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="flex flex-col justify-start w-full max-w-lg mx-auto h-screen py-10 sm:py-40 bg-gray-50 uppercase">
+      <header className="">
+        <h1 className="text-2xl sm:text-3xl text-indigo-400 font-bold text-center mb-10 select-none">Let's play some tic tac toe!</h1>
       </header>
+      <main className="flex flex-col justify-between items-center">
+        <Board />
+      </main>
     </div>
   );
 }
