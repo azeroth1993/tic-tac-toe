@@ -15,7 +15,7 @@ const Cell = ({ index, nextPlayer, onClick, reset }) => {
 
   return (
     <span
-      className="flex justify-center items-center w-16 h-16 cursor-pointer bg-indigo-400 text-white text-2xl font-bold select-none active:scale-[0.97] border border-white rounded"
+      className="flex justify-center items-center w-full aspect-square cursor-pointer bg-indigo-400 text-white text-5xl font-bold select-none active:scale-[0.97] border border-white rounded-lg"
       onClick={press}
     >
       {content}
