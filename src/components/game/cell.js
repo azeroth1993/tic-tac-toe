@@ -5,8 +5,10 @@ const Cell = ({ index, nextPlayer, onClick, reset }) => {
   const [content, setContent] = useState('');
 
   const press = () => {
-    content === '' && setContent(nextPlayer);
-    onClick(index, content === '' && nextPlayer);
+    if (content === '') {
+      setContent(nextPlayer);
+      onClick(index, content === '' && nextPlayer);
+    }
   }
 
   useEffect(() => {
