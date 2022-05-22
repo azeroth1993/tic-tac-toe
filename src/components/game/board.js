@@ -10,6 +10,7 @@ const Board = ({ firstPlayer = 'x' }) => {
   const [winner, setWinner] = useState('');
   const [scores, setScores] = useState({'x': 0, 'o': 0});
   const [gameOver, setGameOver] = useState(false);
+  const [clear, setClear] = useState(false);
   const [xMoves, setXMoves] = useState([]);
   const [oMoves, setOMoves] = useState([]);
   const cells = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -19,6 +20,7 @@ const Board = ({ firstPlayer = 'x' }) => {
     setXMoves([]);
     setOMoves([]);
     setGameOver(false);
+    setClear(true);
     setWinner(``);
   }
 
@@ -41,6 +43,7 @@ const Board = ({ firstPlayer = 'x' }) => {
   }, [xMoves, oMoves]);
 
   const handleMove = (index, content) => {
+    setClear(false);
     content === 'x' ? setXMoves([...xMoves, index]) : setOMoves([...oMoves, index]);
     setCurrentPlayer(content);
     nextPlayer === 'x' ? setNextPlayer('o') : setNextPlayer('x');
@@ -48,30 +51,30 @@ const Board = ({ firstPlayer = 'x' }) => {
 
   return (
     <div className="flex flex-col justify-center items-center w-full">
-      <h2 className="text-2xl font-bold text-center capitalize w-full mb-5 select-none text-black">next player: <span className="text-rose-500">{nextPlayer}</span></h2>
-      <div className="grid grid-cols-2 rounded-lg overflow-hidden mb-4 w-full shadow">
+      <h2 className="text-2xl font-bold text-center capitalize w-full mb-5 select-none text-cream">next player: <span className="text-rose-500">{nextPlayer}</span></h2>
+      <div className="grid grid-cols-2 rounded-lg overflow-hidden mb-4 w-full">
         <div className="flex flex-col justify-center items-center">
-          <span className="block w-full text-center text-lg font-bold text-white bg-rose-500 capitalize py-2">player X</span>
-          <span className="block w-full text-center text-3xl font-bold text-indigo-400 bg-white capitalize py-2">{scores.x}</span>
+          <span className="block w-full text-center text-lg font-bold text-cream bg-rose-500 capitalize py-2">player X</span>
+          <span className="block w-full text-center text-3xl font-bold text-cell bg-cream capitalize py-2">{scores.x}</span>
         </div>
         <div className="flex flex-col justify-center items-center">
-          <span className="block w-full text-center text-lg font-bold text-white bg-rose-500 capitalize py-2">player O</span>
-          <span className="block w-full text-center text-3xl font-bold text-indigo-400 bg-white capitalize py-2">{scores.o}</span>
+          <span className="block w-full text-center text-lg font-bold text-cream bg-rose-500 capitalize py-2">player O</span>
+          <span className="block w-full text-center text-3xl font-bold text-cell bg-cream capitalize py-2">{scores.o}</span>
         </div>
       </div>
-      <div className={`grid grid-cols-3 gap-0 my-5 relative w-full ${gameOver ? 'pointer-events-none' : ''}`}>
+      <div className={`grid grid-cols-3 gap-1 my-5 relative w-full ${gameOver ? 'pointer-events-none' : ''}`}>
         {cells.map((x, i) => (
-          <Cell key={x + i} index={x} nextPlayer={nextPlayer} onClick={handleMove} reset={gameOver} />
+          <Cell key={x + i} index={x} nextPlayer={nextPlayer} onClick={handleMove} reset={clear} />
         ))}
         <span 
-          className={`${gameOver ? 'flex' : 'hidden'} justify-center items-center rounded-lg absolute top-0 left-0 w-full h-full z-10 bg-white bg-opacity-90 text-rose-500 capitalize text-3xl font-bold select-none [text-shadow:1px_1px_#bebebe]`}
+          className={`${gameOver ? 'flex' : 'hidden'} justify-center items-center rounded-lg absolute top-0 left-0 w-full h-full z-10 bg-main-bg bg-opacity-90 text-cream capitalize text-3xl font-bold select-none`}
         >
           {winner}
         </span>
       </div>
       <Button
         text="reset"
-        className="bg-rose-500 mt-4 border-rose-500 rounded-lg text-white text-xl font-bold w-full uppercase"
+        className="bg-rose-500 mt-4 border-rose-500 rounded-lg text-cream text-xl font-bold w-full uppercase"
         onClick={reset}
       />
     </div>
