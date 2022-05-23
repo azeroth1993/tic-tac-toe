@@ -8,6 +8,7 @@ const Board = ({ firstPlayer = 'x' }) => {
   const [nextPlayer, setNextPlayer] = useState(firstPlayer);
   const [currentPlayer, setCurrentPlayer] = useState('');
   const [winner, setWinner] = useState('');
+  const [winMove, setWinMove] = useState([]);
   const [scores, setScores] = useState({'x': 0, 'o': 0});
   const [gameOver, setGameOver] = useState(false);
   const [clear, setClear] = useState(false);
@@ -27,6 +28,7 @@ const Board = ({ firstPlayer = 'x' }) => {
   const winCheck = (player, moves) => {
     let results = winCombinations.map(x => x.every(x => moves.includes(x)));
     if (moves.length <= 5 && results.includes(true)) {
+      setWinMove(winCombinations[results.indexOf(true)]);
       setWinner(`player ${player} has won!`);
       let newScore = player === 'x' ? {'x': scores.x + 1, 'o': scores.o} : {'x': scores.x, 'o': scores.o + 1};
       setScores(newScore);
@@ -64,7 +66,7 @@ const Board = ({ firstPlayer = 'x' }) => {
       </div>
       <div className={`grid grid-cols-3 gap-1 my-5 relative w-full ${gameOver ? 'pointer-events-none' : ''}`}>
         {cells.map((x, i) => (
-          <Cell key={x + i} index={x} nextPlayer={nextPlayer} onClick={handleMove} reset={clear} />
+          <Cell key={x + i} index={x} nextPlayer={nextPlayer} onClick={handleMove} reset={clear} isWin={gameOver && winMove.includes(x)} />
         ))}
         <span 
           className={`${gameOver ? 'flex' : 'hidden'} justify-center items-center rounded-lg absolute top-0 left-0 w-full h-full z-10 bg-main-bg bg-opacity-90 text-cream capitalize text-3xl font-bold select-none`}

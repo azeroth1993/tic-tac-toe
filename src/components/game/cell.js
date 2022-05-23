@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 
-const Cell = ({ index, nextPlayer, onClick, reset }) => {
+const Cell = ({ index, nextPlayer, onClick, reset, isWin }) => {
 
   const [content, setContent] = useState('');
 
@@ -17,7 +17,7 @@ const Cell = ({ index, nextPlayer, onClick, reset }) => {
 
   return (
     <span
-      className="flex justify-center items-center w-full aspect-square cursor-pointer bg-cell text-cream text-5xl font-bold select-none active:scale-[0.97] rounded-lg"
+      className={`flex justify-center items-center w-full aspect-square cursor-pointer bg-cell text-cream text-5xl font-bold select-none active:scale-[0.97] rounded-lg ${isWin ? 'border-[3px] border-white' : ''}`}
       onClick={press}
     >
       {content}
