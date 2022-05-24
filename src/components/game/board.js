@@ -34,6 +34,7 @@ const Board = ({ firstPlayer = 'x' }) => {
       setScores(newScore);
       setGameOver(true);
     } else if (moves.length > 0 && moves.length === 5 && !results.includes(true)) {
+      setWinMove([]);
       setWinner(`it's a draw!`);
       setGameOver(true);
     }
@@ -64,7 +65,7 @@ const Board = ({ firstPlayer = 'x' }) => {
           <span className="block w-full text-center text-3xl font-bold text-cell bg-cream capitalize py-2">{scores.o}</span>
         </div>
       </div>
-      <div className={`grid grid-cols-3 gap-1 my-5 relative w-full ${gameOver ? 'pointer-events-none' : ''}`}>
+      <div className={`grid grid-cols-3 gap-1 my-5 relative w-full rounded-lg ${gameOver ? 'pointer-events-none' : ''}`}>
         {cells.map((x, i) => (
           <Cell key={x + i} index={x} nextPlayer={nextPlayer} onClick={handleMove} reset={clear} isWin={gameOver && winMove.includes(x)} />
         ))}
