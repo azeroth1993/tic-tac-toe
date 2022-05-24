@@ -17,7 +17,7 @@ const Cell = ({ index, nextPlayer, onClick, reset, isWin }) => {
 
   return (
     <span
-      className={`flex justify-center items-center w-full aspect-square cursor-pointer select-none active:scale-[0.97] rounded-lg ${isWin ? 'bg-white text-cell' : 'bg-cell text-cream'}`}
+      className={`flex justify-center items-center w-full aspect-square cursor-pointer select-none active:scale-[0.97] transition-all rounded-lg ${isWin ? 'bg-white text-cell' : 'bg-cell text-cream'}`}
       onClick={press}
     >
       {content === 'x' && 
