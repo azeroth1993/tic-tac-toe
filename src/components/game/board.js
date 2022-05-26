@@ -70,7 +70,7 @@ const Board = ({ firstPlayer = 'x' }) => {
           <Cell key={x + i} index={x} nextPlayer={nextPlayer} onClick={handleMove} reset={clear} isWin={gameOver && winMove.includes(x)} />
         ))}
         <span 
-          className={`${gameOver ? 'flex' : 'hidden'} justify-center items-center rounded-lg absolute top-0 left-0 w-full h-full z-10 bg-main-bg bg-opacity-90 text-cream capitalize text-3xl font-bold select-none`}
+          className={`${gameOver ? 'flex' : 'hidden'} justify-center items-center absolute top-0 left-0 w-full h-full z-10 bg-main-bg bg-opacity-90 text-cream capitalize text-3xl font-bold select-none`}
         >
           {winner}
         </span>
