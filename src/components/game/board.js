@@ -22,17 +22,21 @@ const Board = ({ firstPlayer = 'x' }) => {
 
   const checkWin = (moves, size) => {
     moves.map(x => {
-      if ([x - 1, x, x + 1].every(y => moves.includes(y)) && (x % rowSize > 1)) {
+      if ([x - 1, x, x + 1].every(y => moves.includes(y)) && (x % size > 1)) {
         setWinMove({isWin: true, cells: [x - 1, x, x + 1]});
+        console.log('row win');
       }
-      if ([x - size, x, x + size].every(y => moves.includes(y)) && (x > rowSize) && ((rowSize ** 2 - x) > rowSize)) {
+      if ([x - size, x, x + size].every(y => moves.includes(y)) && (x > size) && ((size ** 2 - x) > size)) {
         setWinMove({isWin: true, cells: [x - size, x, x + size]});
+        console.log('column win');
       }
-      if ([x + (size - 1), x, x - (size - 1)].every(y => moves.includes(y)) && (x > rowSize) && (x % rowSize > 1) && ((rowSize ** 2 - x) > rowSize)) {
+      if ([x + (size - 1), x, x - (size - 1)].every(y => moves.includes(y)) && (x > size) && (x % size > 1) && ((size ** 2 - x) > size)) {
         setWinMove({isWin: true, cells: [x + (size - 1), x, x - (size - 1)]});
+        console.log('diagonal win');
       }
-      if ([x + (size + 1), x, x - (size + 1)].every(y => moves.includes(y)) && (x > rowSize) && (x % rowSize > 1) && ((rowSize ** 2 - x) > rowSize)) {
+      if ([x + (size + 1), x, x - (size + 1)].every(y => moves.includes(y)) && (x > size) && (x % size > 1) && ((size ** 2 - x) > size)) {
         setWinMove({isWin: true, cells: [x + (size + 1), x, x - (size + 1)]});
+        console.log('diagonal win');
       }
     })
   }
@@ -68,10 +72,11 @@ const Board = ({ firstPlayer = 'x' }) => {
     let copyXMoves = xMoves;
     let copyOMoves = oMoves;
     content === 'x' ? copyXMoves.push(index) : copyOMoves.push(index);
-    content === 'x' ? setXMoves(copyXMoves) : setOMoves(copyOMoves);
+    setXMoves(copyXMoves); 
+    setOMoves(copyOMoves);
     setCurrentPlayer(content);
     nextPlayer === 'x' ? setNextPlayer('o') : setNextPlayer('x');
-    checkWin(moves, rowSize);
+    checkWin(moves, Number(rowSize));
   }
 
   const WelcomeScreen = () => {
@@ -102,7 +107,7 @@ const Board = ({ firstPlayer = 'x' }) => {
           <span className="block w-full text-center text-3xl font-bold text-cell bg-cream capitalize py-2">{scores.o}</span>
         </div>
       </div>
-      <div style={{ '--size': rowSize }} className={`grid [grid-template-columns:repeat(var(--size),_1fr)] gap-1 my-5 relative w-full rounded-lg ${gameOver ? 'pointer-events-none' : ''}`}>
+      <div style={{ '--size': rowSize, '--gap': `calc((100% / ${rowSize}) * 0.05)` }} className={`grid [grid-template-columns:repeat(var(--size),_1fr)] [gap:var(--gap)] py-5 relative w-full rounded-lg ${gameOver ? 'pointer-events-none' : ''}`}>
         {boardCells.map((x, i) => (
           <Cell key={x + i} index={x} nextPlayer={nextPlayer} onClick={(index, content) => handleMove(index, content, (content === 'x' ? xMoves : oMoves))} reset={clearCell} isWin={gameOver && winMove.cells.includes(x)} />
         ))}
